@@ -1,0 +1,23 @@
+.card-list {
+    margin-bottom: 10px;
+
+    .card-body {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 40px;
+        color: #0c0d36;
+
+        .card-thumbnail {
+            width: 60px;
+            height: 60px;
+
+            img {
+                border-radius: 10px;
+                height: 60px;
+                width: 60px;
+                object-position: center;
+                object-fit: cover;
+            }
+        }
+    }
+}
