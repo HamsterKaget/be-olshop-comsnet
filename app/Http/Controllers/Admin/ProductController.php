@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\UserRequest;
+use App\Http\Requests\Admin\ProductRequest;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Str;
-// use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserController extends Controller
+
+class ProductController extends Controller
 {
     public function index()
     {
         if(request()->ajax()) {
-            $query = User::query();
+            $query = Product::with(['user', 'category']);
             return DataTables::of($query)->addColumn('action', function($item) {
                 return '
                     <div class="btn-group">
@@ -27,8 +29,8 @@ class UserController extends Controller
                                 Actions
                             </button>
                             <div class="dropdown-menu">
-                                <a href="' . route('user.edit', $item->id) . '" class="dropdown-item">Edit</a>
-                                <form action="'. route('user.destroy', $item->id).'" method="post">
+                                <a href="' . route('product.edit', $item->id) . '" class="dropdown-item">Edit</a>
+                                <form action="'. route('product.destroy', $item->id).'" method="post">
                                     '. method_field('delete') . csrf_field() . '
                                     <button type="submit" class="btn dropdown-item text-danger">Delete</button>
                                 </form>
@@ -39,7 +41,7 @@ class UserController extends Controller
             })->rawColumns(['action'])->make();
         }
         // dd('ada');
-        return view('pages.admin.user.index');
+        return view('pages.admin.product.index');
     }
 
     /**
@@ -49,7 +51,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create');
+        $users = User::all();
+        $categories = Category::all();
+
+        return view('pages.admin.product.create', [
+            'users' => $users,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -58,17 +66,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(ProductRequest $request)
     {
-        // dd('ada');
         $data = $request->all();
-        $data['password'] = bcrypt($request->password);
+        $data['slug'] = Str::slug('ada');
 
-        if(User::create($data)) {
-            return redirect()->route('user.index')->with(['success' =>'Data Stored Successfully']);
+        // ddd($data['slug']);
+
+        if(Product::create($data)) {
+            return redirect()->route('product.index')->with(['success' =>'Data Stored Successfully']);
         }
 
-        return redirect()->route('user.index')->with(['error' => 'Can\'t Stored Data ']);
+        return redirect()->route('product.index')->with(['error' => 'Can\'t Stored Data ']);
     }
 
     /**
@@ -90,10 +99,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
+        $item = Product::findOrFail($id);
+        $users = User::all();
+        $categories = Category::all();
 
-        return view('pages.admin.user.edit', [
+        return view('pages.admin.product.edit', [
             'item' => $item,
+            'users' => $users,
+            'categories' => $categories,
         ]);
     }
 
@@ -104,23 +117,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $data = $request->all();
-        $item = User::findOrFail($id);
-
-        if($request->password) {
-            $data['password'] = bcrypt($request->password);
-        } else {
-            unset($data['password']);
-        }
-
-
+        $item = Product::findOrFail($id);
 
         if($item->update($data)) {
-            return redirect()->route('user.index')->with(['success' =>'Data Updated']);
+            return redirect()->route('product.index')->with(['success' =>'Data Updated']);
         }
-        return redirect()->route('user.index')->with(['error' => 'Can\'t Update Data ']);
+        return redirect()->route('product.index')->with(['error' => 'Can\'t Update Data ']);
     }
 
     /**
@@ -131,10 +136,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $item =  User::findOrFail($id);
+        $item =  Product::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('user.index')->with(['success' =>' Data successfuly deleted']);
+        return redirect()->route('product.index')->with(['success' =>' Data successfuly deleted']);
         // ddd($item['photo']);
     }
 }

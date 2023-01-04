@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title')
-Users - Comsnet Store
+Products - Comsnet Store
 @endsection
 
 @section('content')
 <div class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
         <div class="dashboard-heading">
-            <h2 class="dashboard-title">Users</h2>
-            <p class="dashboard-subtitle">Create or Manage Users !</p>
+            <h2 class="dashboard-title">Products</h2>
+            <p class="dashboard-subtitle">Create or Manage Products !</p>
         </div>
         <div class="dashboard-content">
             <div class="row">
@@ -28,27 +28,19 @@ Users - Comsnet Store
                             <strong>{{ $message }}</strong>
                         </div>
                     @endif
-
-                    {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            Please check the form below for errors
-                        </div>
-                    @endif --}}
-
-
                     <div class="card">
                         <div class="card-body">
 
-                            <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">+ Add New Users</a>
+                            <a href="{{ route('product.create') }}" class="btn btn-primary mb-3">+ Add New Products</a>
                             <div class="table-responsive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Roles</th>
+                                            <th>Owner</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -77,8 +69,10 @@ Users - Comsnet Store
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'roles', name: 'roles' },
+                { data: 'user.name', name: 'user.name' },
+                { data: 'category.name', name: 'category.name' },
+                // { data: 'user.name', name: 'user.name' },
+                { data: 'price', name: 'price' },
                 { data: 'action', name: 'action', orderable: false, searcable: false, width: '15%' },
             ]
         })

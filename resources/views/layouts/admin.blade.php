@@ -27,7 +27,7 @@
                     <div class="list-group list-group-flush pl-4">
                         <a href="{{ route('admin-dashboard') }}" class="list-group-item list-group-item-action {{ (request()->is('admin') ? 'active' : '') }}" "> Dashboard </a>
                         <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/category*') ? 'active' : '') }}"> Category </a>
-                        <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action"> Product </a>
+                        <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product*') ? 'active' : '') }} "> Product </a>
                         <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action"> Transactions </a>
                         <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/user*') ? 'active' : '') }}"> Users </a>
                         <a href="/" class="list-group-item list-group-item-action"> Sign Out </a>

@@ -14,7 +14,7 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'name', 'users_id', 'categories_id', 'price', 'description',
+        'name', 'users_id', 'categories_id', 'price', 'description', 'slug'
     ];
 
     protected $hidden = [
@@ -26,7 +26,7 @@ class Product extends Model
     }
 
     public function user() {
-        return $this->hasOne(ProductGallery::class, 'id', 'users_id');
+        return $this->hasOne(User::class, 'id', 'users_id');
     }
 
     public function category() {
