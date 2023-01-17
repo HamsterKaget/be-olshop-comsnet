@@ -11,11 +11,11 @@ class ProductGallery extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'products';
+    protected $table = 'product_galleries';
 
     protected $fillable = [
         'photos',
-        'product_id'
+        'products_id'
     ];
 
     protected $hidden = [

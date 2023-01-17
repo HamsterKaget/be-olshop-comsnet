@@ -12,7 +12,7 @@
                 <li class="nav-item">
                     <a href="{{ route('categories') }}" class="nav-link">Categories</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="#" class="nav-link">Rewards</a>
                 </li>
                 <li class="nav-item">
@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('login') }}" class="btn-success rounded-lg nav-link px-4 text-white">Sign In</a>
-                </li> --}}
+                </li>
             </ul>
         </div>
     </div>

@@ -22,8 +22,8 @@ return new class extends Migration
 
             $table->longText('addres_one');
             $table->longText('addres_two');
-            $table->integer('provinces_id');
-            $table->integer('regencies_id');
+            $table->string('provinces');
+            $table->string('regencies');
             $table->integer('zip_code');
             $table->string('country');
             $table->string('phone_number');

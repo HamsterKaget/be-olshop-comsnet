@@ -37,54 +37,36 @@ Category - Comsnet Store
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $totalPrice = 0;
+                            @endphp
+                            @foreach ($cart as $item)
                             <tr>
                                 <td style="width: 20%">
-                                    <img src="./images/cart-item-1.jpg" alt="product image" class="cart-image" />
+                                    @if ($item->product->galleries)
+                                        <img src="{{ Storage::url($item->product->galleries->first()->photos) }}" alt="product image" class="cart-image" />
+                                    @endif
                                 </td>
                                 <td style="width: 40%">
-                                    <div class="product-title">Apple Watch</div>
-                                    <div class="product-subtitle">by someone brand</div>
+                                    <div class="product-title">{{ $item->product->name }}</div>
+                                    <div class="product-subtitle">by {{ $item->product->user->store_name }}</div>
                                 </td>
                                 <td style="width: 20%">
-                                    <div class="product-title">$123,12</div>
+                                    <div class="product-title">Rp {{ number_format($item->product->price) }}</div>
                                     <div class="product-subtitle">USD</div>
                                 </td>
                                 <td style="width: 20%" class="text-center">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
+                                    <form action="{{ route('delete-cart', $item->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-remove-cart">Remove</button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="width: 20%">
-                                    <img src="./images/cart-item-2.jpg" alt="product image" class="cart-image" />
-                                </td>
-                                <td style="width: 40%">
-                                    <div class="product-title">Some Stuff Who's have long name</div>
-                                    <div class="product-subtitle">by someone brand</div>
-                                </td>
-                                <td style="width: 20%">
-                                    <div class="product-title">$15,9</div>
-                                    <div class="product-subtitle">USD</div>
-                                </td>
-                                <td style="width: 20%" class="text-center">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20%">
-                                    <img src="./images/cart-item-3.jpg" alt="product image" class="cart-image" />
-                                </td>
-                                <td style="width: 40%">
-                                    <div class="product-title">Sofa Ternyaman</div>
-                                    <div class="product-subtitle">by someone brand</div>
-                                </td>
-                                <td style="width: 20%">
-                                    <div class="product-title">$1229,59</div>
-                                    <div class="product-subtitle">USD</div>
-                                </td>
-                                <td style="width: 20%" class="text-center">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
-                                </td>
-                            </tr>
+                            @php
+                                $totalPrice +=  $item->product->price
+                            @endphp
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -97,17 +79,18 @@ Category - Comsnet Store
                     <h2 class="mb-4">Shipping Details</h2>
                 </div>
             </div>
+            <form action="" method="post">
             <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="addresOne">Address 1</label>
-                        <input type="text" name="addresOne" id="addresOne" class="form-control" />
+                        <label for="address_one">Address 1</label>
+                        <input type="text" name="address_one" id="address_one" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="AddresTwo">Address 2</label>
-                        <input type="text" name="AddresTwo" id="AddresTwo" class="form-control" />
+                        <label for="address_two">Address 2</label>
+                        <input type="text" name="address_two" id="address_two" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -118,14 +101,14 @@ Category - Comsnet Store
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" name="city" id="city" class="form-control" />
+                        <label for="regencies">City</label>
+                        <input type="text" name="regencies" id="regencies" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="postalCode">Postal Code</label>
-                        <input type="text" name="postalCode" id="postalCode" class="form-control" />
+                        <label for="zip_code">Postal Code</label>
+                        <input type="text" name="zip_code" id="zip_code" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -141,8 +124,8 @@ Category - Comsnet Store
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="mobile">Mobile</label>
-                        <input type="number" name="mobile" id="mobile" class="form-control" />
+                        <label for="phone_number">Phone Number</label>
+                        <input type="number" name="phone_number" id="phone_number" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -156,25 +139,26 @@ Category - Comsnet Store
             </div>
             <div class="row" data-aos="fade-up">
                 <div class="col-4 col-md-2">
-                    <div class="product-title">$10</div>
+                    <div class="product-title">Rp 0</div>
                     <div class="product-subtitle">Country Tax</div>
                 </div>
                 <div class="col-4 col-md-3">
-                    <div class="product-title">$280</div>
+                    <div class="product-title">Rp 0</div>
                     <div class="product-subtitle">Product Insurance</div>
                 </div>
                 <div class="col-4 col-md-2">
-                    <div class="product-title">$49,99</div>
+                    <div class="product-title">Rp 0</div>
                     <div class="product-subtitle">Ship to Jakarta</div>
                 </div>
                 <div class="col-4 col-md-2">
-                    <div class="product-title text-success mt-4 mt-md-0">$299,99</div>
+                    <div class="product-title text-success mt-4 mt-md-0">Rp {{ number_format($totalPrice) }}</div>
                     <div class="product-subtitle">Total</div>
                 </div>
                 <div class="col-8 col-md-3">
                     <a href="success.html" class="btn btn-success mt-4 my-md-auto px-4 btn-block">Checkout Now</a>
                 </div>
             </div>
+            </form>
         </div>
     </section>
 </div>

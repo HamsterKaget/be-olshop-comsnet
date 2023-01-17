@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
@@ -21,9 +22,9 @@ use App\Http\Controllers\HomeController;
 |--------------------------------------------------------------------------
 |
 */
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
+// Route::get('/debug-sentry', function () {
+//     throw new Exception('My first Sentry error!');
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -39,10 +40,13 @@ Route::get('/debug-sentry', function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::get('/categories/{slug}', [CategoryController::class, 'detail'])->name('categories-detail');
 
 Route::get('/details/{id}', [DetailController::class, 'index'])->name('detail');
+Route::post('/details/{id}', [DetailController::class, 'add'])->name('add-cart');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::delete('/cart/{id}', [CartController::class, 'delete'])->name('delete-cart');
 Route::get('/success', [CartController::class, 'success'])->name('success');
 
 Route::get('/register/success', [RegisterController::class, 'success'])->name('register-success');
@@ -67,6 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('category', AdminCategoryController::class);
     Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
+    Route::resource('product-gallery', ProductGalleryController::class);
 });
 
 Auth::routes();

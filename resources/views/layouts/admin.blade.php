@@ -25,9 +25,10 @@
                         </a>
                     </div>
                     <div class="list-group list-group-flush pl-4">
-                        <a href="{{ route('admin-dashboard') }}" class="list-group-item list-group-item-action {{ (request()->is('admin') ? 'active' : '') }}" "> Dashboard </a>
+                        <a href="{{ route('admin-dashboard') }}" class="list-group-item list-group-item-action {{ (request()->is('admin') ? 'active' : '') }}"> Dashboard </a>
                         <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/category*') ? 'active' : '') }}"> Category </a>
-                        <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product*') ? 'active' : '') }} "> Product </a>
+                        <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product', 'admin/product/*') ? 'active' : '') }} "> Product </a>
+                        <a href="{{ route('product-gallery.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/product-gallery*') ? 'active' : '') }} "> Product Gallery </a>
                         <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action"> Transactions </a>
                         <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/user*') ? 'active' : '') }}"> Users </a>
                         <a href="/" class="list-group-item list-group-item-action"> Sign Out </a>
@@ -52,10 +53,10 @@
                                             Hi, Hamster
                                         </a>
                                         <div class="dropdown-menu">
-                                            <a href="/dashboard.html" class="dropdown-item">Dashboard</a>
-                                            <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
+                                            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                                            <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="/" class="dropdown-item">Logout</a>
+                                            <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                                         </div>
                                     </li>
                                 </ul>

@@ -13,7 +13,7 @@ Detail - Comsnet Store
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/index">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Product Details</li>
                         </ol>
@@ -23,7 +23,7 @@ Detail - Comsnet Store
         </div>
     </section>
 
-    <section class="store-gallery" id="gallery">
+    <section class="store-gallery mb-3" id="gallery">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8" data-aos="zoom-in">
@@ -49,12 +49,19 @@ Detail - Comsnet Store
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h1>sofa Ternyaman</h1>
-                        <div class="owner">By somebrand</div>
-                        <div class="price">$1,123</div>
+                        <h1>{{ $product->name }}</h1>
+                        <div class="owner">By {{ $product->user->store_name }}</div>
+                        <div class="price">Rp {{ number_format($product->price) }}</div>
                     </div>
                     <div class="col-lg-2" data-aos="zoom-in">
-                        <a href="/cart.html" class="btn btn-success px-4 text-white btn-block mb-3"> Add to Cart </a>
+                        @auth
+                            <form action="{{ route('add-cart', $product->id) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">Add to Cart</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-success px-4 text-white btn-block mb-3"> Sign in to Add </a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -63,11 +70,7 @@ Detail - Comsnet Store
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <p>The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air unit yet for unimaginable, all-day comfort. There's super breathable fabrics on the upper, while colours add a modern edge.</p>
-                        <p>
-                            Bring the past into the future with the Nike Air Max 2090, a bold look inspired by the DNA of the iconic Air Max 90. Brand-new Nike Air cushioning underfoot adds unparalleled comfort while transparent
-                            mesh and vibrantly coloured details on the upper are blended with timeless OG features for an edgy, modernised look.
-                        </p>
+                        {!! $product->description !!}
                     </div>
                 </div>
             </div>
@@ -124,22 +127,12 @@ Detail - Comsnet Store
         data: {
             activePhoto: 0,
             photos: [
-                {
-                    id: 1,
-                    url: "/images/sova-1.png",
-                },
-                {
-                    id: 2,
-                    url: "/images/sova-4.png",
-                },
-                {
-                    id: 3,
-                    url: "/images/sova-3.jpg",
-                },
-                {
-                    id: 4,
-                    url: "/images/sova-4.png",
-                },
+                @foreach ($product->galleries as $gallery )
+                    {
+                        id: {{ $gallery->id }} ,
+                        url: "{{ Storage::url($gallery->photos) }}",
+                    },
+                @endforeach
             ],
         },
         methods: {
