@@ -25,6 +25,14 @@ class User extends Authenticatable
         'store_name',
         'categories_id',
         'store_status',
+
+        'addres_one',
+        'addres_two',
+        'provinces',
+        'regencies',
+        'zip_code',
+        'country',
+        'phone_number',
     ];
 
     /**

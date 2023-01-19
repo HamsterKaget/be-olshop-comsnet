@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->longText('addres_one')->nullable()->change();
             $table->longText('addres_two')->nullable()->change();
-            $table->integer('provinces_id')->nullable()->change();
-            $table->integer('regencies_id')->nullable()->change();
+            $table->string('provinces')->nullable()->change();
+            $table->string('regencies')->nullable()->change();
             $table->integer('zip_code')->nullable()->change();
             $table->string('country')->nullable()->change();
             $table->string('phone_number')->nullable()->change();

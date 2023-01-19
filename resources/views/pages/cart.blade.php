@@ -79,7 +79,9 @@ Category - Comsnet Store
                     <h2 class="mb-4">Shipping Details</h2>
                 </div>
             </div>
-            <form action="" method="post">
+            <form action="{{ route('checkout') }}" method="post" enctype="multipart/form-data" id='location'>
+            @csrf
+            <input type="hidden" name="total_price" value="{{ $totalPrice }}">
             <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -155,7 +157,7 @@ Category - Comsnet Store
                     <div class="product-subtitle">Total</div>
                 </div>
                 <div class="col-8 col-md-3">
-                    <a href="success.html" class="btn btn-success mt-4 my-md-auto px-4 btn-block">Checkout Now</a>
+                    <button type="submit" class="btn btn-success mt-4 my-md-auto px-4 btn-block">Checkout Now</button>
                 </div>
             </div>
             </form>
