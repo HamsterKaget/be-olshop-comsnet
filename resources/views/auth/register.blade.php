@@ -52,17 +52,17 @@
                                     </span>
                                 @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="is_store_open">Store</label>
                             <p>Apakah anda juga ingin membuka toko?</p>
-                            {{-- <div class="custom-control custom-radio custom-control-inline">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" name="is_store_open" id="openStoreTrue" v-model="is_store_open" :value="true" />
                                 <label for="openStoreTrue" class="my-auto ml-1">Yes, Ofc</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" name="is_store_open" id="openStoreFalse" v-model="is_store_open" :value="false" />
                                 <label for="openStoreFalse" class="my-auto ml-1">No, Thanks !</label>
-                            </div> --}}
+                            </div>
 
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" name="is_store_open" id="openStoreTrue" v-model="is_store_open" :value="true" />
@@ -82,8 +82,8 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        </div>
-                        <div class="form-group" v-if="is_store_open">
+                        </div> --}}
+                        {{-- <div class="form-group" v-if="is_store_open">
                             <label for="categories_id">categories</label>
                             <select name="categories_id" id="categories_id" class="form-control">
                                 <option value="" selected disabled>Select Category</option>
@@ -91,7 +91,7 @@
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-success btn-block mt-4" :disabled="this.email_unavailable" >Sign Up Now</button>
                         <a href="{{ route('login') }}" class="btn btn-signup btn-block mt-4">Back To Sign In</a>
                     </form>

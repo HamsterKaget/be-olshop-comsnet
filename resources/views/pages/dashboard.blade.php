@@ -17,7 +17,7 @@ Dashboard - Comsnet Store
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Costumer</div>
-                            <div class="dashboard-card-subtitle">15,209</div>
+                            <div class="dashboard-card-subtitle">{{ number_format($costumer) }}</div>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ Dashboard - Comsnet Store
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Revenue</div>
-                            <div class="dashboard-card-subtitle">$931,290</div>
+                            <div class="dashboard-card-subtitle">{{ number_format($revenue) }}</div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ Dashboard - Comsnet Store
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Transaction</div>
-                            <div class="dashboard-card-subtitle">22,409,399</div>
+                            <div class="dashboard-card-subtitle">{{ number_format($transaction_count) }}</div>
                         </div>
                     </div>
                 </div>
@@ -41,51 +41,23 @@ Dashboard - Comsnet Store
             <div class="row mt-3">
                 <div class="col-12 mt-2">
                     <h5 class="mb-3">Recent Transactions</h5>
-                    <a href="/dashboard-transactions-details.html" class="card card-list d-block">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1 card-thumbnail">
-                                    <img src="./images/product-tatakan-gelas.jpg" alt="icon product" />
-                                </div>
-                                <div class="col-md-4">Some Product</div>
-                                <div class="col-md-3">Some Name</div>
-                                <div class="col-md-3">12 Januari 2022</div>
-                                <div class="col-md-1 d-none d-md-block">
-                                    <img src="/images/dashboard-arrow.svg" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="/dashboard-transactions-details.html" class="card card-list d-block">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1 card-thumbnail">
-                                    <img src="./images/product-shoes.jpg" alt="icon product" />
-                                </div>
-                                <div class="col-md-4">Some Product</div>
-                                <div class="col-md-3">Some Name</div>
-                                <div class="col-md-3">13 Januari 2022</div>
-                                <div class="col-md-1 d-none d-md-block">
-                                    <img src="/images/dashboard-arrow.svg" alt="" />
+                    @foreach ($transaction_data as $transaction)
+                        <a href="/dashboard-transactions-details.html" class="card card-list d-block">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-1 card-thumbnail">
+                                        <img src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}" alt="icon product" class="w-75" />
+                                    </div>
+                                    <div class="col-md-4">{{ $transaction->product->name ?? '' }}</div>
+                                    <div class="col-md-3">{{ $transaction->transaction->user->name ?? ''  }}</div>
+                                    <div class="col-md-3">{{ $transaction->created_at ?? '' }}</div>
+                                    <div class="col-md-1 d-none d-md-block">
+                                        <img src="/images/dashboard-arrow.svg" alt="" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    <a href="/dashboard-transactions-details.html" class="card card-list d-block">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1 card-thumbnail">
-                                    <img src="./images/product-apple-watch.jpg" alt="icon product" />
-                                </div>
-                                <div class="col-md-4">Some Product</div>
-                                <div class="col-md-3">Some Name</div>
-                                <div class="col-md-3">14 Januari 2022</div>
-                                <div class="col-md-1 d-none d-md-block">
-                                    <img src="/images/dashboard-arrow.svg" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

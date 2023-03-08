@@ -33,7 +33,7 @@ Comsnet Store - Home Page
         </div>
     </section>
 
-    <section class="store-trend-categories">
+    {{-- <section class="store-trend-categories">
         <div class="container">
             <div class="row">
                 <div class="col-12" data-aos="fade-up">
@@ -59,9 +59,9 @@ Comsnet Store - Home Page
 
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="store-new-products">
+    {{-- <section class="store-new-products">
         <div class="container">
             <div class="row">
                 <div class="col-12" data-aos="fade-up">
@@ -91,6 +91,14 @@ Comsnet Store - Home Page
                         No Products Found
                     </div>
                 @endforelse
+            </div>
+        </div>
+    </section> --}}
+
+    <section class="store-new-products">
+        <div class="container">
+            <div class="row">
+
             </div>
         </div>
     </section>
